@@ -22,8 +22,9 @@ MAKEFLAGS += --jobs=$(shell grep '^processor' /proc/cpuinfo | wc -l)
 FPPFLAGS :=
 
 FFLAGS := -fcray-pointer -fdefault-double-8 -fdefault-real-8 -Waliasing -ffree-line-length-none -fno-range-check
-FFLAGS += -I$(shell nc-config --includedir)
-FFLAGS += $(shell pkg-config --cflags-only-I mpich2-c)
+#FFLAGS += -I$(shell nc-config --includedir)
+FFLAGS += -I/usr/local/include
+#FFLAGS += $(shell pkg-config --cflags-only-I mpich2-c)
 FFLAGS_OPT = -O3
 FFLAGS_REPRO = -O2 -fbounds-check
 FFLAGS_DEBUG = -O0 -g -W -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow
