@@ -27,7 +27,7 @@ FFLAGS += -I/usr/local/include
 #FFLAGS += $(shell pkg-config --cflags-only-I mpich2-c)
 FFLAGS_OPT = -O3
 FFLAGS_REPRO = -O2 -fbounds-check
-FFLAGS_DEBUG = -O0 -g -W -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow
+FFLAGS_DEBUG = -O0 -g -W -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow -fimplicit-none
 FFLAGS_OPENMP = -fopenmp
 FFLAGS_VERBOSE =
 
