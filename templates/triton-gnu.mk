@@ -1,6 +1,6 @@
 # template for the GNU fortran compiler w/ openmpi
 # typical use with mkmf
-# mkmf -t triton-gnu.mk -c"-Duse_libMPI -Duse_netCDF -DSPMD" path_names 
+# mkmf -t triton-gnu.mk -c"-Duse_libMPI -Duse_netCDF -DSPMD" path_names
 ############
 # commands #
 ############
@@ -10,30 +10,30 @@ LD = mpif90 $(MAIN_PROGRAM)
 #########
 # flags #
 #########
-DEBUG =  
+DEBUG =
 REPRO =
 VERBOSE =
 OPENMP =
 
 MAKEFLAGS += --jobs=$(shell grep '^processor' /proc/cpuinfo | wc -l)
 
-FPPFLAGS := 
+FPPFLAGS :=
 
-FFLAGS :=-fcray-pointer -fdefault-double-8 -fdefault-real-8 -Waliasing -ffree-line-length-none -fno-range-check 
+FFLAGS :=-fcray-pointer -fdefault-double-8 -fdefault-real-8 -Waliasing -ffree-line-length-none -fno-range-check
 FFLAGS += -I/usr/include
 FFLAGS += -I$(shell nf-config --includedir)
 FFLAGS += -DGFORTRAN -Duse_netCDF3
 FFLAGS_OPT = -O3
-FFLAGS_REPRO = -O2 -fbounds-check 
+FFLAGS_REPRO = -O2 -fbounds-check
 FFLAGS_DEBUG = -O0 -g -W -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow
 FFLAGS_OPENMP = -fopenmp
-FFLAGS_VERBOSE = 
+FFLAGS_VERBOSE =
 
 CFLAGS := -D__IFC -Duse_netCDF3
 CFLAGS += -I$(shell nc-config --includedir)
 CFLAGS_OPT = -O2
 CFLAGS_OPENMP = -fopenmp
-CFLAGS_DEBUG = -O0 -g 
+CFLAGS_DEBUG = -O0 -g
 
 # Optional Testing compile flags.  Mutually exclusive from DEBUG, REPRO, and OPT
 # *_TEST will match the production if no new option(s) is(are) to be tested.
