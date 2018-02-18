@@ -4,10 +4,10 @@
 ############
 # commands #
 ############
-FC = gfortran
-CC = gcc
+FC = mpif90
+CC = mpicc
 CXX = g++
-LD = gfortran $(MAIN_PROGRAM)
+LD = mpif90 $(MAIN_PROGRAM)
 
 #########
 # flags #
@@ -22,8 +22,8 @@ MAKEFLAGS += --jobs=$(shell grep '^processor' /proc/cpuinfo | wc -l)
 FPPFLAGS :=
 
 FFLAGS := -fcray-pointer -fdefault-double-8 -fdefault-real-8 -Waliasing -ffree-line-length-none -fno-range-check
-FFLAGS += -I$(shell nc-config --includedir)
-FFLAGS += $(shell pkg-config --cflags-only-I mpich2-c)
+FFLAGS += -I$(shell nf-config --includedir)
+FFLAGS +=
 FFLAGS_OPT = -O3
 FFLAGS_REPRO = -O2 -fbounds-check
 FFLAGS_DEBUG = -O0 -g -W -fbounds-check -fbacktrace -ffpe-trap=invalid,zero,overflow
@@ -32,7 +32,7 @@ FFLAGS_VERBOSE =
 
 CFLAGS := -D__IFC
 CFLAGS += -I$(shell nc-config --includedir)
-CFLAGS += $(shell pkg-config --cflags-only-I mpich2-c)
+CFLAGS +=
 CFLAGS_OPT = -O2
 CFLAGS_OPENMP = -fopenmp
 CFLAGS_DEBUG = -O0 -g
@@ -43,6 +43,7 @@ FFLAGS_TEST = -O2
 CFLAGS_TEST = -O2
 
 LDFLAGS :=
+LDFLAGS += $(shell nf-config --flibs)
 LDFLAGS_OPENMP := -fopenmp
 LDFLAGS_VERBOSE :=
 
@@ -79,7 +80,7 @@ ifeq ($(NETCDF),3)
   endif
 endif
 
-LIBS := $(shell nc-config --flibs) $(shell pkg-config --libs mpich2-f90)
+LIBS := $(shell nc-config --flibs)
 LDFLAGS += $(LIBS)
 
 #---------------------------------------------------------------------------
