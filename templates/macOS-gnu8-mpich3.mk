@@ -1,4 +1,4 @@
-# Template for the GNU Compiler on macOS 
+# Template for the GNU Compiler on macOS
 # Tested on macOS Mojave (version 10.14.2), with gnu 8.2 and mpich 3.3
 #
 # Typical use with mkmf
@@ -81,7 +81,7 @@ $(error Options DEBUG and TEST cannot be used together)
 endif
 endif
 
-# Get number of CPUs 
+# Get number of CPUs
 #MAKEFLAGS += --jobs=$(shell grep '^processor' /proc/cpuinfo | wc -l)
 MAKEFLAGS += --jobs=$(shell sysctl -n hw.ncpu)
 # Macro for Fortran preprocessor
