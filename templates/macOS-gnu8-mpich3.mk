@@ -84,8 +84,13 @@ endif
 # Get number of CPUs
 #MAKEFLAGS += --jobs=$(shell grep '^processor' /proc/cpuinfo | wc -l)
 MAKEFLAGS += --jobs=$(shell sysctl -n hw.ncpu)
+
 # Macro for Fortran preprocessor
 FPPFLAGS := $(INCLUDES)
+# Add -D__APPLE__ for Fortran if on OSX (i.e. Darwin)
+ifeq ($(shell uname -s),Darwin)
+FPPFLAGS += -D__APPLE__
+endif
 # Fortran Compiler flags for the NetCDF library
 FPPFLAGS += $(shell nf-config --fflags)
 # Fortran Compiler flags for the MPICH MPI library
